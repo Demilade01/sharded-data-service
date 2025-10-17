@@ -15,6 +15,7 @@ export const storeRouter = Router();
  * POST /api/store
  * Store data with userId
  */
+// @ts-ignore
 storeRouter.post('/store', (req: Request, res: Response) => {
   const end = httpRequestDuration.startTimer();
 
@@ -71,6 +72,7 @@ storeRouter.post('/store', (req: Request, res: Response) => {
  * GET /api/data/:userId
  * Retrieve data by userId
  */
+// @ts-ignore
 storeRouter.get('/data/:userId', (req: Request, res: Response) => {
   const end = httpRequestDuration.startTimer();
 

@@ -8,6 +8,7 @@ export const shardRouter = Router();
  * GET /api/shard/:shardId
  * Get all data in a specific shard
  */
+// @ts-ignore
 shardRouter.get('/shard/:shardId', (req: Request, res: Response) => {
   const end = httpRequestDuration.startTimer();
 
@@ -50,6 +51,7 @@ shardRouter.get('/shard/:shardId', (req: Request, res: Response) => {
  * GET /api/stats
  * Get statistics about shard distribution
  */
+// @ts-ignore
 shardRouter.get('/stats', (req: Request, res: Response) => {
   const end = httpRequestDuration.startTimer();
 

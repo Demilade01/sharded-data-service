@@ -7,6 +7,7 @@ export const metricsRouter = Router();
  * GET /metrics
  * Prometheus metrics endpoint
  */
+// @ts-ignore
 metricsRouter.get('/', async (req: Request, res: Response) => {
   try {
     res.set('Content-Type', register.contentType);

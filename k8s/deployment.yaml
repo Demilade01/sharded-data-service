@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sharded-data-service
+  labels:
+    app: sharded-data-service
+spec:
+  # Number of pod replicas to run
+  replicas: 2
+
+  # How to select which pods belong to this deployment
+  selector:
+    matchLabels:
+      app: sharded-data-service
+
+  # Template for creating pods
+  template:
+    metadata:
+      labels:
+        app: sharded-data-service
+    spec:
+      containers:
+      - name: sharded-data-service
+        # Docker image to use
+        # Change 'yourusername' to your Docker Hub username
+        # Or use 'sharded-data-service:latest' for local testing
+        image: sharded-data-service:latest
+        imagePullPolicy: Never  # Use 'Always' if pulling from Docker Hub
+
+        # Container port
+        ports:
+        - containerPort: 3000
+          name: http
+
+        # Environment variables
+        env:
+        - name: PORT
+          value: "3000"
+        - name: NODE_ENV
+          value: "production"
+        - name: SHARD_COUNT
+          value: "5"
+        - name: METRICS_ENABLED
+          value: "true"
+
+        # Resource limits and requests
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+        # Liveness probe - checks if container is alive
+        # Kubernetes will restart container if this fails
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        # Readiness probe - checks if container is ready to receive traffic
+        # Kubernetes won't send traffic until this passes
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+

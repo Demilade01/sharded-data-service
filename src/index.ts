@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 import { setupMetrics } from './metrics';
 import { storeRouter } from './routes/store.routes';
 import { shardRouter } from './routes/shard.routes';
-import { metricsRouter } from './routes/metrics.routes';
 import { healthRouter } from './routes/health.routes';
+import { metricsRouter } from './routes/metrics.routes';
 
 // Load environment variables
 dotenv.config();

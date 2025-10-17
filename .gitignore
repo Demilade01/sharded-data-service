@@ -40,3 +40,6 @@ coverage/
 temp/
 tmp/
 
+# Project planning (local only)
+PROJECT.md
+

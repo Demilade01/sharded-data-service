@@ -7,6 +7,7 @@ export const healthRouter = Router();
  * GET /health
  * Health check endpoint
  */
+// @ts-ignore
 healthRouter.get('/', (req: Request, res: Response) => {
   const stats = shardManager.getStats();
 

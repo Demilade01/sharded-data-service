@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sharded-data-service
+  labels:
+    app: sharded-data-service
+spec:
+  # Service type - determines how service is exposed
+  # Options:
+  #   - ClusterIP: Internal only (default)
+  #   - NodePort: Exposes on each node's IP at a static port
+  #   - LoadBalancer: Creates external load balancer (cloud providers)
+  type: NodePort
+
+  # Selector - routes traffic to pods with matching labels
+  selector:
+    app: sharded-data-service
+
+  # Ports configuration
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80        # Port exposed by the service
+    targetPort: 3000 # Port on the container
+    nodePort: 30080  # Port accessible on node (30000-32767 range)
+
+  - name: metrics
+    protocol: TCP
+    port: 9090
+    targetPort: 3000
+    nodePort: 30090
+
