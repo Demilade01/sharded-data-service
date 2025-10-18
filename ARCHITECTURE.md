@@ -54,12 +54,12 @@ graph TB
     Pod1 -->|Expose Metrics| Prom
     Pod2 -->|Expose Metrics| Prom
 
-    style Client fill:#e1f5ff
-    style LB fill:#fff4e1
-    style Pod1 fill:#e8f5e9
-    style Pod2 fill:#e8f5e9
-    style CM fill:#f3e5f5
-    style Prom fill:#ffe0b2
+    style Client fill:#b3e5fc,stroke:#01579b,stroke-width:2px
+    style LB fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
+    style Pod1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Pod2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style CM fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    style Prom fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
 ```
 
 ---
@@ -127,9 +127,9 @@ graph TB
     ShardRoute --> PromClient
     MetricsRoute --> PromClient
 
-    style Main fill:#e3f2fd
-    style ShardMgr fill:#c8e6c9
-    style PromClient fill:#fff9c4
+    style Main fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style ShardMgr fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style PromClient fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
 ```
 
 ---
@@ -151,12 +151,12 @@ graph TD
     UpdateMetrics --> Response[Return Response<br/>shardId: 4, success: true]
     Response --> End([End])
 
-    style Start fill:#e1f5ff
-    style Hash fill:#fff4e1
-    style Modulo fill:#f3e5f5
-    style Store fill:#e8f5e9
-    style UpdateMetrics fill:#ffe0b2
-    style End fill:#e1f5ff
+    style Start fill:#b3e5fc,stroke:#01579b,stroke-width:2px
+    style Hash fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
+    style Modulo fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    style Store fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style UpdateMetrics fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
+    style End fill:#b3e5fc,stroke:#01579b,stroke-width:2px
 ```
 
 ---
@@ -262,11 +262,11 @@ graph LR
     U9 -.->|hash % 5 = 0| S0
     U10 -.->|hash % 5 = 3| S3
 
-    style S0 fill:#ffebee
-    style S1 fill:#e8f5e9
-    style S2 fill:#e3f2fd
-    style S3 fill:#fff9c4
-    style S4 fill:#f3e5f5
+    style S0 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    style S1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style S2 fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style S3 fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
+    style S4 fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
 ```
 
 ---
@@ -316,12 +316,12 @@ graph TB
     Svc -->|Load Balance| Pod1
     Svc -->|Load Balance| Pod2
 
-    style Deploy fill:#e3f2fd
-    style Svc fill:#fff4e1
-    style Pod1 fill:#e8f5e9
-    style Pod2 fill:#e8f5e9
-    style CM fill:#f3e5f5
-    style Ext fill:#ffebee
+    style Deploy fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style Svc fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
+    style Pod1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Pod2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style CM fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    style Ext fill:#ffcdd2,stroke:#c62828,stroke-width:2px
 ```
 
 ---
@@ -366,11 +366,11 @@ graph TB
     Prom -->|HTTP GET /metrics| Endpoint
     Prom --> Grafana
 
-    style Counter fill:#ffebee
-    style Gauge fill:#e8f5e9
-    style Histogram fill:#e3f2fd
-    style Prom fill:#fff9c4
-    style Grafana fill:#f3e5f5
+    style Counter fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    style Gauge fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style Histogram fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style Prom fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
+    style Grafana fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
 ```
 
 ---
@@ -401,10 +401,10 @@ graph TD
     Error400 --> End
     Error500 --> End
 
-    style Error400 fill:#ffebee
-    style Error500 fill:#ffebee
-    style Response200 fill:#e8f5e9
-    style Metrics fill:#e3f2fd
+    style Error400 fill:#ffcdd2,stroke:#c62828,stroke-width:3px
+    style Error500 fill:#ffcdd2,stroke:#c62828,stroke-width:3px
+    style Response200 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style Metrics fill:#bbdefb,stroke:#1565c0,stroke-width:2px
 ```
 
 ---
@@ -449,8 +449,8 @@ graph TB
     style P5 fill:#e3f2fd
     style P6 fill:#e3f2fd
     style P7 fill:#e3f2fd
-    style Note1 fill:#fff9c4
-    style Note2 fill:#fff9c4
+    style Note1 fill:#ffe0b2,stroke:#ff6f00,stroke-width:2px,color:#000
+    style Note2 fill:#ffe0b2,stroke:#ff6f00,stroke-width:2px,color:#000
 ```
 
 ---
@@ -471,23 +471,10 @@ These diagrams illustrate:
 
 ---
 
-## Using These Diagrams
-
-### For Presentation Slides:
-1. Go to https://mermaid.live/
-2. Copy each diagram code
-3. Export as PNG/SVG
-4. Insert into PowerPoint/Google Slides
 
 ### For GitHub README:
 - Diagrams render automatically in GitHub markdown
 - Can also be rendered in VS Code with extension
 
-### For Video Walkthrough:
-- Use these diagrams to explain architecture
-- Show on screen while narrating
 
----
-
-**Created for:** Sharded Data Service Project Submission
 
