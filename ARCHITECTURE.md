@@ -292,6 +292,7 @@ graph LR
 This shows the Kubernetes resources and their relationships.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#c8e6c9','primaryTextColor':'#000','primaryBorderColor':'#2e7d32','lineColor':'#666'}}}%%
 graph TB
     subgraph "Kubernetes Resources"
         subgraph "Workload"
@@ -302,7 +303,7 @@ graph TB
         end
 
         subgraph "Networking"
-            Svc[Service<br/>Type: NodePort<br/>Port: 80 → 3000<br/>NodePort: 30080]
+            Svc[Service<br/>Type: NodePort<br/>Port: 80 to 3000<br/>NodePort: 30080]
         end
 
         subgraph "Configuration"
@@ -332,12 +333,15 @@ graph TB
     Svc -->|Load Balance| Pod1
     Svc -->|Load Balance| Pod2
 
-    style Deploy fill:#bbdefb,stroke:#1565c0,stroke-width:2px
-    style Svc fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
-    style Pod1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style Pod2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style CM fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
-    style Ext fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    style Deploy fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style Svc fill:#ffe0b2,stroke:#e65100,stroke-width:3px,color:#000
+    style Pod1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style Pod2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style CM fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px,color:#000
+    style Ext fill:#ffcdd2,stroke:#c62828,stroke-width:3px,color:#000
+    style RS fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style Live fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
+    style Ready fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
 ```
 
 ---
@@ -347,6 +351,7 @@ graph TB
 This shows how metrics are collected and exposed.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#c8e6c9','primaryTextColor':'#000','primaryBorderColor':'#2e7d32','lineColor':'#666'}}}%%
 graph TB
     subgraph "Application"
         Request[HTTP Request]
@@ -382,11 +387,16 @@ graph TB
     Prom -->|HTTP GET /metrics| Endpoint
     Prom --> Grafana
 
-    style Counter fill:#ffcdd2,stroke:#c62828,stroke-width:2px
-    style Gauge fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style Histogram fill:#bbdefb,stroke:#1565c0,stroke-width:2px
-    style Prom fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
-    style Grafana fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    style Counter fill:#ffcdd2,stroke:#c62828,stroke-width:3px,color:#000
+    style Gauge fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style Histogram fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style Prom fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
+    style Grafana fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px,color:#000
+    style Request fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style Handler fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style ShardMgr fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style Registry fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style Endpoint fill:#ffe0b2,stroke:#e65100,stroke-width:3px,color:#000
 ```
 
 ---
@@ -396,6 +406,7 @@ graph TB
 This shows how errors are handled in the system.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#e0e0e0','primaryTextColor':'#000','primaryBorderColor':'#424242','lineColor':'#666'}}}%%
 graph TD
     Request[Incoming Request] --> Validate[Validate Input]
 
@@ -417,10 +428,18 @@ graph TD
     Error400 --> End
     Error500 --> End
 
-    style Error400 fill:#ffcdd2,stroke:#c62828,stroke-width:3px
-    style Error500 fill:#ffcdd2,stroke:#c62828,stroke-width:3px
-    style Response200 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
-    style Metrics fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style Error400 fill:#ffcdd2,stroke:#c62828,stroke-width:4px,color:#000
+    style Error500 fill:#ffcdd2,stroke:#c62828,stroke-width:4px,color:#000
+    style Response200 fill:#c8e6c9,stroke:#2e7d32,stroke-width:4px,color:#000
+    style Metrics fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style Request fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style Validate fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style Process fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style Try fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
+    style Catch fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
+    style LogError fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style FailMetrics fill:#bbdefb,stroke:#1565c0,stroke-width:2px,color:#000
+    style End fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000
 ```
 
 ---
@@ -430,6 +449,7 @@ graph TD
 This shows how the system can be scaled.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#c8e6c9','primaryTextColor':'#000','primaryBorderColor':'#2e7d32','lineColor':'#666'}}}%%
 graph TB
     subgraph "Current State: 2 Replicas"
         LB1[Load Balancer]
@@ -458,15 +478,17 @@ graph TB
     Note1[Note: Each pod has<br/>independent in-memory shards.<br/>Data is NOT shared between pods.]
     Note2[Scaling increases throughput<br/>but does NOT increase storage<br/>capacity per user.]
 
-    style P1 fill:#e8f5e9
-    style P2 fill:#e8f5e9
-    style P3 fill:#e3f2fd
-    style P4 fill:#e3f2fd
-    style P5 fill:#e3f2fd
-    style P6 fill:#e3f2fd
-    style P7 fill:#e3f2fd
-    style Note1 fill:#ffe0b2,stroke:#ff6f00,stroke-width:2px,color:#000
-    style Note2 fill:#ffe0b2,stroke:#ff6f00,stroke-width:2px,color:#000
+    style P1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style P2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style P3 fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style P4 fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style P5 fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style P6 fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style P7 fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style LB1 fill:#ffe0b2,stroke:#e65100,stroke-width:3px,color:#000
+    style LB2 fill:#ffe0b2,stroke:#e65100,stroke-width:3px,color:#000
+    style Note1 fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
+    style Note2 fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
 ```
 
 ---
@@ -487,10 +509,6 @@ These diagrams illustrate:
 
 ---
 
-
-### For GitHub README:
-- Diagrams render automatically in GitHub markdown
-- Can also be rendered in VS Code with extension
 
 
 
