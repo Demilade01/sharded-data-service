@@ -2,26 +2,12 @@
 
 This document contains the system architecture diagrams for the Sharded Data Service.
 
-## 📊 How to View These Diagrams
-
-### Option 1: GitHub (Automatic)
-- Push this file to GitHub - diagrams render automatically
-
-### Option 2: VS Code
-- Install "Markdown Preview Mermaid Support" extension
-- Open preview (Ctrl+Shift+V)
-
-### Option 3: Online Editors
-- Copy diagram code to: https://mermaid.live/
-- Export as PNG/SVG for presentations
-
----
-
 ## 1. High-Level System Architecture
 
 This diagram shows the overall system architecture including Kubernetes deployment.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#c8e6c9','primaryTextColor':'#000','primaryBorderColor':'#2e7d32','lineColor':'#666','secondaryColor':'#e1bee7','tertiaryColor':'#b3e5fc'}}}%%
 graph TB
     subgraph "External"
         Client[Client/User<br/>Browser, HTTPie, Postman]
@@ -54,12 +40,12 @@ graph TB
     Pod1 -->|Expose Metrics| Prom
     Pod2 -->|Expose Metrics| Prom
 
-    style Client fill:#b3e5fc,stroke:#01579b,stroke-width:2px
-    style LB fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
-    style Pod1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style Pod2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style CM fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
-    style Prom fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
+    style Client fill:#b3e5fc,stroke:#01579b,stroke-width:3px,color:#000
+    style LB fill:#ffe0b2,stroke:#e65100,stroke-width:3px,color:#000
+    style Pod1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style Pod2 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style CM fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px,color:#000
+    style Prom fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
 ```
 
 ---
@@ -69,6 +55,7 @@ graph TB
 This diagram shows the internal structure of each pod/application instance.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#c8e6c9','primaryTextColor':'#000','primaryBorderColor':'#2e7d32','lineColor':'#666'}}}%%
 graph TB
     subgraph "Express Application"
         subgraph "Entry Point"
@@ -127,9 +114,21 @@ graph TB
     ShardRoute --> PromClient
     MetricsRoute --> PromClient
 
-    style Main fill:#bbdefb,stroke:#1565c0,stroke-width:2px
-    style ShardMgr fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style PromClient fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
+    style Main fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style ShardMgr fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style PromClient fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
+    style CORS fill:#e0e0e0,stroke:#616161,stroke-width:2px,color:#000
+    style JSON fill:#e0e0e0,stroke:#616161,stroke-width:2px,color:#000
+    style Metrics fill:#e0e0e0,stroke:#616161,stroke-width:2px,color:#000
+    style StoreRoute fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style ShardRoute fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style MetricsRoute fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style HealthRoute fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style Shard0 fill:#b3e5fc,stroke:#01579b,stroke-width:2px,color:#000
+    style Shard1 fill:#b3e5fc,stroke:#01579b,stroke-width:2px,color:#000
+    style Shard2 fill:#b3e5fc,stroke:#01579b,stroke-width:2px,color:#000
+    style Shard3 fill:#b3e5fc,stroke:#01579b,stroke-width:2px,color:#000
+    style Shard4 fill:#b3e5fc,stroke:#01579b,stroke-width:2px,color:#000
 ```
 
 ---
@@ -139,10 +138,11 @@ graph TB
 This diagram explains how the sharding mechanism works.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#c8e6c9','primaryTextColor':'#000','primaryBorderColor':'#2e7d32','lineColor':'#666'}}}%%
 graph TD
-    Start([User Request]) --> Input[Input: userId + data<br/>Example: 'user123']
+    Start([User Request]) --> Input[Input: userId + data<br/>Example: user123]
     Input --> Hash[Hash Function<br/>Convert string to number]
-    Hash --> HashCalc[hash'user123' = 1847238974]
+    Hash --> HashCalc[hash user123 = 1847238974]
     HashCalc --> Modulo[Modulo Operation<br/>hash % SHARD_COUNT]
     Modulo --> ModCalc[1847238974 % 5 = 4]
     ModCalc --> ShardId[Shard ID = 4]
@@ -151,12 +151,17 @@ graph TD
     UpdateMetrics --> Response[Return Response<br/>shardId: 4, success: true]
     Response --> End([End])
 
-    style Start fill:#b3e5fc,stroke:#01579b,stroke-width:2px
-    style Hash fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
-    style Modulo fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
-    style Store fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style UpdateMetrics fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
-    style End fill:#b3e5fc,stroke:#01579b,stroke-width:2px
+    style Start fill:#b3e5fc,stroke:#01579b,stroke-width:3px,color:#000
+    style Hash fill:#ffe0b2,stroke:#e65100,stroke-width:3px,color:#000
+    style Modulo fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px,color:#000
+    style Store fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style UpdateMetrics fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
+    style End fill:#b3e5fc,stroke:#01579b,stroke-width:3px,color:#000
+    style Input fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style HashCalc fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style ModCalc fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
+    style ShardId fill:#ffcdd2,stroke:#c62828,stroke-width:3px,color:#000
+    style Response fill:#f0f0f0,stroke:#424242,stroke-width:2px,color:#000
 ```
 
 ---
@@ -229,6 +234,7 @@ sequenceDiagram
 This shows how data is distributed across shards.
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#e0e0e0','primaryTextColor':'#000','primaryBorderColor':'#616161','lineColor':'#666'}}}%%
 graph LR
     subgraph "Users"
         U1[user1]
@@ -262,11 +268,21 @@ graph LR
     U9 -.->|hash % 5 = 0| S0
     U10 -.->|hash % 5 = 3| S3
 
-    style S0 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
-    style S1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-    style S2 fill:#bbdefb,stroke:#1565c0,stroke-width:2px
-    style S3 fill:#fff59d,stroke:#f57f17,stroke-width:2px,color:#000
-    style S4 fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    style S0 fill:#ffcdd2,stroke:#c62828,stroke-width:3px,color:#000
+    style S1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style S2 fill:#bbdefb,stroke:#1565c0,stroke-width:3px,color:#000
+    style S3 fill:#fff59d,stroke:#f57f17,stroke-width:3px,color:#000
+    style S4 fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px,color:#000
+    style U1 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U2 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U3 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U4 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U5 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U6 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U7 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U8 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U9 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
+    style U10 fill:#e0e0e0,stroke:#424242,stroke-width:2px,color:#000
 ```
 
 ---
