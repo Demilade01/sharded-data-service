@@ -84,7 +84,7 @@ The service uses a simple but effective sharding algorithm:
    ```bash
    # Health check
    curl http://localhost:3000/health
-   
+
    # Store data
    curl -X POST http://localhost:3000/api/store \
      -H "Content-Type: application/json" \
